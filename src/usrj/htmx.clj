@@ -1,10 +1,11 @@
 (ns usrj.htmx
   (:require [reitit.ring :as ring]
-            [ring.adapter.jetty :refer [run-jetty]])
+            [ring.adapter.jetty :refer [run-jetty]]
+            [rum.core :refer [render-static-markup] :rename {render-static-markup html}])
   (:gen-class))
 
 (defn ping-handler [_]
-  {:status 200, :body "<b>ok</b>"})
+  {:status 200, :body (html [:b "ok"])})
 
 (def app
   (ring/ring-handler

@@ -1,7 +1,7 @@
 {:paths ["src" "resources"]
  :deps  {ring/ring-jetty-adapter {:mvn/version "1.9.6"}
          metosin/reitit-ring {:mvn/version "0.5.18"}
-         hiccup/hiccup {:mvn/version "2.0.0-alpha2"}}
+         rum/rum {:mvn/version "0.12.10"}}
  :aliases
  {:neil 
   {:project {:name usrj.htmx
