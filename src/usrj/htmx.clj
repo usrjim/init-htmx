@@ -1,16 +1,21 @@
 (ns usrj.htmx
   (:require [reitit.ring :as ring]
+            [reitit.ring.middleware.parameters :refer [parameters-middleware]]
             [ring.adapter.jetty :refer [run-jetty]]
-            [rum.core :refer [render-static-markup] :rename {render-static-markup html}])
+            [rum.core :refer [render-static-markup]])
   (:gen-class))
 
+(defn response-ok [data]
+  {:status 200, :body (render-static-markup data)})
+
 (defn ping-handler [_]
-  {:status 200, :body (html [:b "ok"])})
+  (response-ok [:b "ok"]))
 
 (def app
   (ring/ring-handler
    (ring/router
-    [["/ping" {:get ping-handler}]])
+    [["/ping" {:get ping-handler
+               :middleware [parameters-middleware]}]])
    (ring/routes
     (ring/create-resource-handler {:path "/"})
     (ring/create-default-handler))))
