@@ -21,7 +21,7 @@
     (ring/create-default-handler))))
 
 (defn -main []
-  (run-jetty #'app {:port 8080, :join? false})
+  (run-jetty #'app {:host "127.0.0.1" :port 8080, :join? false})
   (println "server running in port 8080"))
 
 (comment
@@ -30,7 +30,7 @@
   (def dev-server
     (run-jetty
      (-> #'app wrap-reload)
-     {:port 8080, :join? false}))
+     {:host "127.0.0.1" :port 8080, :join? false}))
 
-  (.stop dev-server)
-,)
+  (.stop dev-server))
+,
