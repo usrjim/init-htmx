@@ -1,21 +1,34 @@
 (ns usrj.htmx
   (:require [reitit.ring :as ring]
-            [reitit.ring.middleware.parameters :refer [parameters-middleware]]
             [ring.adapter.jetty :refer [run-jetty]]
-            [rum.core :refer [render-static-markup]])
+            [rum.core :refer [render-static-markup]]
+            [ring.middleware.defaults :refer [wrap-defaults api-defaults]])
   (:gen-class))
 
-(defn response-ok [data]
-  {:status 200, :body (render-static-markup data)})
+(defn wrap-rum-render [handler]
+  (fn [req]
+    (let [response (handler req)]
+      (if (vector? response)
+        {:status 200
+         :headers {"content-type" "text/html"}
+         :body (render-static-markup response)}
+        response))))
 
-(defn ping-handler [_]
-  (response-ok [:b "ok"]))
+(defn wrap-api-defaults [handler]
+  (-> handler
+      wrap-rum-render
+      (wrap-defaults api-defaults)))
+
+(defn ping-handler [{{:keys [foo bar]} :params}]
+  [:div
+   [:b foo]
+   [:i bar]])
 
 (def app
   (ring/ring-handler
    (ring/router
-    [["/ping" {:get ping-handler
-               :middleware [parameters-middleware]}]])
+    [["/ping" {:get ping-handler}]]
+    {:data {:middleware [wrap-api-defaults]}})
    (ring/routes
     (ring/create-resource-handler {:path "/"})
     (ring/create-default-handler))))
@@ -32,5 +45,6 @@
      (-> #'app wrap-reload)
      {:host "127.0.0.1" :port 8080, :join? false}))
 
-  (.stop dev-server))
-,
+  (.stop dev-server)
+
+  ,)

@@ -1,8 +1,8 @@
 {:paths ["src" "resources"]
  :deps  {ring/ring-jetty-adapter {:mvn/version "1.9.6"}
          metosin/reitit-ring {:mvn/version "0.5.18"}
-         metosin/reitit-middleware {:mvn/version "0.5.18"}
-         rum/rum {:mvn/version "0.12.10"}}
+         rum/rum {:mvn/version "0.12.10"}
+         ring/ring-defaults {:mvn/version "0.3.4"}}
  :aliases
  {:neil 
   {:project {:name usrj.htmx
@@ -24,4 +24,3 @@
   :dev
   {:extra-deps {ring/ring-devel {:mvn/version "1.9.6"}
                 org.clojure/tools.trace {:mvn/version "0.7.11"}}}}}
-                
