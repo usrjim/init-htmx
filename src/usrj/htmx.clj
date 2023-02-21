@@ -1,22 +1,25 @@
 (ns usrj.htmx
   (:require [reitit.ring :as ring]
             [ring.adapter.jetty :refer [run-jetty]]
-            [rum.core :refer [render-static-markup]]
+            [hiccup.core :refer [html]]
             [ring.middleware.defaults :refer [wrap-defaults api-defaults]])
   (:gen-class))
 
-(defn wrap-rum-render [handler]
+(defn wrap-hiccup-render [handler]
   (fn [req]
-    (let [response (handler req)]
-      (if (vector? response)
-        {:status 200
-         :headers {"content-type" "text/html"}
-         :body (render-static-markup response)}
-        response))))
+    (let [response (handler req)
+          body (if (vector? response)
+                 (if (vector? (first response))
+                   (apply (fn [& args] (html args)) response)
+                   (html response))
+                 response)]
+      {:status 200
+       :headers {"content-type" "text/html"}
+       :body body})))
 
 (defn wrap-api-defaults [handler]
   (-> handler
-      wrap-rum-render
+      wrap-hiccup-render
       (wrap-defaults api-defaults)))
 
 (defn ping-handler [{{:keys [foo bar]} :params}]
