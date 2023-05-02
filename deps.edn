@@ -24,5 +24,5 @@
 
   :dev
   {:extra-deps {ring/ring-devel {:mvn/version "1.9.6"}
-                io.github.nubank/morse {:git/tag "v2023.04.27.01" :git/sha "7a85e46"}
+                io.github.nubank/morse {:git/tag "v2023.04.30.01" :git/sha "d99b09c"}
                 org.clojure/tools.trace {:mvn/version "0.7.11"}}}}}
