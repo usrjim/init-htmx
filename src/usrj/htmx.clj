@@ -1,6 +1,6 @@
 (ns usrj.htmx
   (:require [reitit.ring :as ring]
-            [ring.adapter.jetty :refer [run-jetty]]
+            [org.httpkit.server :refer [run-server]]
             [hiccup.core :refer [html]]
             [ring.middleware.defaults :refer [wrap-defaults api-defaults]])
   (:gen-class))
@@ -37,18 +37,19 @@
     (ring/create-default-handler))))
 
 (defn -main []
-  (run-jetty #'app {:host "127.0.0.1" :port 8080, :join? false})
+  (run-server #'app {:ip "127.0.0.1" :port 8080})
   (println "server running in port 8080"))
 
 (comment
   (require '[ring.middleware.reload :refer [wrap-reload]])
 
   (def dev-server
-    (run-jetty
+    (run-server
      (-> #'app wrap-reload)
-     {:host "127.0.0.1" :port 8080, :join? false}))
+     {:ip "127.0.0.1" :port 8080}))
 
-  (.stop dev-server)
+  ;; stop server
+  (dev-server)
 
   (require '[dev.nu.morse :as morse])
   (morse/launch-in-proc)

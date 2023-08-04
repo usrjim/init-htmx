@@ -1,11 +1,11 @@
 {:paths ["src" "resources"]
- :deps  {ring/ring-jetty-adapter {:mvn/version "1.9.6"}
+ :deps  {http-kit/http-kit {:mvn/version "2.7.0"}
          metosin/reitit-ring {:mvn/version "0.5.18"}
          hiccup/hiccup {:mvn/version "2.0.0-alpha2"}
          ring/ring-defaults {:mvn/version "0.3.4"}
          medley/medley {:mvn/version "1.4.0"}}
  :aliases
- {:neil 
+ {:neil
   {:project {:name usrj.htmx
              :version "0.0.1"}}
 
