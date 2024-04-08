@@ -1,8 +1,8 @@
 {:paths ["src" "resources"]
  :deps  {http-kit/http-kit {:mvn/version "2.7.0"}
-         metosin/reitit-ring {:mvn/version "0.5.18"}
+         metosin/reitit-ring {:mvn/version "0.6.0"}
          hiccup/hiccup {:mvn/version "2.0.0-alpha2"}
-         ring/ring-defaults {:mvn/version "0.3.4"}
+         ring/ring-defaults {:mvn/version "0.4.0"}
          medley/medley {:mvn/version "1.4.0"}}
  :aliases
  {:neil
@@ -10,9 +10,9 @@
              :version "0.0.1"}}
 
   :nrepl ;; added by neil
-  {:extra-deps {nrepl/nrepl {:mvn/version "1.1.0-alpha1"}
+  {:extra-deps {nrepl/nrepl {:mvn/version "1.1.1"}
                 org.clojure/tools.nrepl {:mvn/version "0.2.13"}
-                cider/cider-nrepl {:mvn/version "0.30.0"}}
+                cider/cider-nrepl {:mvn/version "0.47.1"}}
    :main-opts ["-m" "nrepl.cmdline" "--interactive" "--color"
                "--middleware"
                "[cider.nrepl/cider-middleware]"]}
@@ -23,6 +23,6 @@
    :ns-default build}
 
   :dev
-  {:extra-deps {ring/ring-devel {:mvn/version "1.9.6"}
-                io.github.nubank/morse {:git/tag "v2023.04.30.01" :git/sha "d99b09c"}
-                org.clojure/tools.trace {:mvn/version "0.7.11"}}}}}
+  {:extra-deps {ring/ring-devel {:mvn/version "1.12.1"}
+                io.github.nubank/morse {:git/tag "v2023.10.06.02" :git/sha "88b5ff7" :git/url "https://github.com/nubank/morse"}
+                org.clojure/tools.trace {:mvn/version "0.8.0"}}}}}
